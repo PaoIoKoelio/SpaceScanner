@@ -112,7 +112,7 @@ public interface SpaceScannerAPI {
      * @param from         the inclusive beginning of the time frame
      * @param to           the inclusive end of the time frame
      * @throws IllegalArgumentException if outputStream, from or to is null
-     * @throws CipherException if the encrypt/decrypt operation cannot be completed successfully
+     * @throws CipherException          if the encrypt/decrypt operation cannot be completed successfully
      */
     void saveMostReliableRocket(OutputStream outputStream, LocalDate from, LocalDate to) throws CipherException;
 }

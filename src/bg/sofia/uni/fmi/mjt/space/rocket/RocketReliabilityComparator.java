@@ -10,7 +10,7 @@ public class RocketReliabilityComparator implements Comparator<Rocket> {
     private Collection<Mission> missions;
 
     public RocketReliabilityComparator(Collection<Mission> missions) {
-        this.missions=missions;
+        this.missions = missions;
     }
 
     @Override
@@ -21,14 +21,24 @@ public class RocketReliabilityComparator implements Comparator<Rocket> {
         double suc2 = missions.stream()
                 .filter(mission -> mission.detail().rocketName().equals(o2.name()))
                 .filter(mission -> mission.missionStatus().equals(MissionStatus.SUCCESS)).count();
-        double fail1=missions.stream()
+        double fail1 = missions.stream()
                 .filter(mission -> mission.detail().rocketName().equals(o1.name()))
                 .filter(mission -> !mission.missionStatus().equals(MissionStatus.SUCCESS)).count();
-        double fail2=missions.stream()
+        double fail2 = missions.stream()
                 .filter(mission -> mission.detail().rocketName().equals(o2.name()))
                 .filter(mission -> !mission.missionStatus().equals(MissionStatus.SUCCESS)).count();
-        double rel1=(2*suc1+fail1)/(suc1+fail1);
-        double rel2=(2*suc2+fail2)/(suc2+fail2);
+        double rel1;
+        double rel2;
+        if (suc1 == 0 && fail1 == 0) {
+            rel1 = 0;
+        } else {
+            rel1 = (2 * suc1 + fail1) / (suc1 + fail1);
+        }
+        if (suc2 == 0 && fail2 == 0) {
+            rel2 = 0;
+        } else {
+            rel2 = (2 * suc2 + fail2) / (suc2 + fail2);
+        }
         return Double.compare(rel1, rel2);
     }
 }
